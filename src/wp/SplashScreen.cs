@@ -136,9 +136,9 @@ namespace WPCordovaClassLib.Cordova.Commands
         public void show(string options = null)
         {
 
-            if (!popup.IsOpen)    
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                if (!popup.IsOpen)    
                 {
                     popup.Child.Opacity = 0;
 
@@ -162,15 +162,15 @@ namespace WPCordovaClassLib.Cordova.Commands
                     {
                         StartAutoHideTimer();
                     }
-                });
-            }
+                }
+            });
         }
 
         public void hide(string options = null)
         {
-            if (popup.IsOpen)
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                if (popup.IsOpen)
                 {
 
                     popup.Child.Opacity = 1.0;
@@ -191,8 +191,8 @@ namespace WPCordovaClassLib.Cordova.Commands
                         popup.IsOpen = false;
                     };
                     story.Begin();
-                });
-            }
+                }
+            });
         }
 
         private void StartAutoHideTimer()
